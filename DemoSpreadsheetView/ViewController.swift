@@ -113,7 +113,7 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
     // MARK: DataSource
     
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
-        return 3 + 7 * weeks.count
+        return 1 + 7 * weeks.count
     }
     
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
@@ -149,7 +149,7 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
     func mergedCells(in spreadsheetView: SpreadsheetView) -> [CellRange] {
         let titleHeader = [CellRange(from: (0, 0), to: (1, 0))]
         let weakHeader = weeks.enumerated().map { (index, _) -> CellRange in
-            return CellRange(from: (0, index * 7 + 3), to: (0, index * 7 + 9))
+            return CellRange(from: (0, index * 7 + 1), to: (0, index * 7 + 7))
         }
         let charts = tasks.enumerated().map { (index, task) -> CellRange in
             let start = Int(task[1])!
@@ -167,13 +167,13 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
             cell.gridlines.left = .default
             cell.gridlines.right = .none
             return cell
-        case (3..<(3 + 7 * weeks.count), 0):
+        case (1..<(1 + 7 * weeks.count), 0):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
-            cell.label.text = weeks[(indexPath.column - 3) / 7]
+            cell.label.text = weeks[(indexPath.column - 1) / 7]
             cell.gridlines.left = .default
             cell.gridlines.right = .default
             return cell
-        case (3..<(3 + 7 * weeks.count), 1):
+        case (1..<(1 + 7 * weeks.count), 1):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
             cell.label.text = String(format: "%02d Apr", indexPath.column - 2)
             cell.gridlines.left = .default
@@ -187,7 +187,7 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
             cell.gridlines.right = .none
             return cell
 
-        case (3..<(3 + 7 * weeks.count), 2..<(2 + tasks.count)):
+        case (1..<(1 + 7 * weeks.count), 2..<(2 + tasks.count)):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ChartBarCell.self), for: indexPath) as! ChartBarCell
             let start = Int(tasks[indexPath.row - 2][1])!
             if start == indexPath.column - 2 {
