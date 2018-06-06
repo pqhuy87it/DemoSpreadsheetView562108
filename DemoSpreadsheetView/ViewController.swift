@@ -136,7 +136,7 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
             return cell
         case (1..<(1 + 7 * weeks.count), 1):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
-            cell.label.text = String(format: "%02d Apr", indexPath.column - 2)
+            cell.label.text = String(format: "%02d Apr", indexPath.column)
             cell.gridlines.left = .default
             cell.gridlines.right = .default
             return cell
@@ -221,13 +221,7 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
     }
     
     func getTaskCount() -> Int {
-        var count = 0
-        
-        for project in self.projects {
-            count += 1 + (project.isCollapsed ? 0 : project.task.count)
-        }
-        
-        return count
+        return self.projects.reduce(0, {$0 + $1.taskCount})
     }
     
     func getProject(indexPath: IndexPath) -> Project? {

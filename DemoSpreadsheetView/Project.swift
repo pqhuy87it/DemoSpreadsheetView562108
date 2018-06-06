@@ -13,6 +13,10 @@ class Project {
     var isCollapsed: Bool
     var task: [Task]
     
+    var taskCount: Int {
+        return isCollapsed ? 1 : (1 + self.task.count)
+    }
+    
     init(name: String, isCollapsed: Bool, task: [Task]) {
         self.name = name
         self.isCollapsed = isCollapsed
