@@ -15,7 +15,7 @@
 		DEE7714020C63DBD00E0BA8C /* DemoSpreadsheetViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE7713F20C63DBD00E0BA8C /* DemoSpreadsheetViewTests.swift */; };
 		DEE7714B20C63DBD00E0BA8C /* DemoSpreadsheetViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE7714A20C63DBD00E0BA8C /* DemoSpreadsheetViewUITests.swift */; };
 		DEE7716520C643BF00E0BA8C /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE7716420C643BF00E0BA8C /* Cell.swift */; };
-		DEE7716720C651AC00E0BA8C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE7716620C651AC00E0BA8C /* Task.swift */; };
+		DEE7716720C651AC00E0BA8C /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE7716620C651AC00E0BA8C /* Project.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +72,7 @@
 		DEE7714C20C63DBD00E0BA8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEE7715820C63DF100E0BA8C /* SpreadsheetView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SpreadsheetView.xcodeproj; path = Framework/SpreadsheetView.xcodeproj; sourceTree = "<group>"; };
 		DEE7716420C643BF00E0BA8C /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
-		DEE7716620C651AC00E0BA8C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		DEE7716620C651AC00E0BA8C /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +131,7 @@
 				DEE7713320C63DBD00E0BA8C /* LaunchScreen.storyboard */,
 				DEE7713620C63DBD00E0BA8C /* Info.plist */,
 				DEE7716420C643BF00E0BA8C /* Cell.swift */,
-				DEE7716620C651AC00E0BA8C /* Task.swift */,
+				DEE7716620C651AC00E0BA8C /* Project.swift */,
 			);
 			path = DemoSpreadsheetView;
 			sourceTree = "<group>";
@@ -325,7 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEE7716720C651AC00E0BA8C /* Task.swift in Sources */,
+				DEE7716720C651AC00E0BA8C /* Project.swift in Sources */,
 				DEE7712D20C63DBB00E0BA8C /* ViewController.swift in Sources */,
 				DEE7712B20C63DBB00E0BA8C /* AppDelegate.swift in Sources */,
 				DEE7716520C643BF00E0BA8C /* Cell.swift in Sources */,

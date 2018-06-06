@@ -8,17 +8,19 @@
 
 import Foundation
 
-class Task {
-    var name: String = "abc"
-    var isCollapsed: Bool = false
-    var taskDetails: [TaskDetail]
+class Project {
+    var name: String
+    var isCollapsed: Bool
+    var task: [Task]
     
-    init(taskDetails: [TaskDetail]) {
-        self.taskDetails = taskDetails
+    init(name: String, isCollapsed: Bool, task: [Task]) {
+        self.name = name
+        self.isCollapsed = isCollapsed
+        self.task = task
     }
 }
 
-class TaskDetail {
+class Task {
     var data: String
     var startDate: Int
     var endDate: Int

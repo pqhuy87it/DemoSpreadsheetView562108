@@ -75,8 +75,15 @@ class TaskCell: Cell {
     }
 }
 
+protocol ProjectCellDelegate: class {
+    func didExpandCollapseProject(indexPath: IndexPath)
+}
+
 class ProjectCell: Cell {
     let button = UIButton()
+    let label = UILabel()
+    
+    weak var delegate: ProjectCellDelegate?
     
     override var frame: CGRect {
         didSet {
@@ -87,12 +94,15 @@ class ProjectCell: Cell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        button.frame = bounds
-        button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        button.font = UIFont.boldSystemFont(ofSize: 10)
-//        button.textAlignment = .left
+        label.frame = bounds
+        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        label.font = UIFont.boldSystemFont(ofSize: 10)
+        label.textAlignment = .center
+        label.textColor = .white
         
-        contentView.addSubview(button)
+        contentView.addSubview(label)
+        
+        self.backgroundColor = UIColor.orange
     }
     
     required init?(coder aDecoder: NSCoder) {

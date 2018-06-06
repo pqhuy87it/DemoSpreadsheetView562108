@@ -15,75 +15,24 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
     
     let weeks = ["Week #14", "Week #15", "Week #16", "Week #17", "Week #18", "Week #19", "Week #20"]
     // Task, Start, Duration, Color
-    let tasks = [
-        ["Office itinerancy", "2", "17", "0"],
-        ["Office facing", "2", "8", "0"],
-        ["Interior office", "2", "7", "1"],
-        ["Air condition check", "3", "7", "1"],
-        ["Furniture installation", "11", "8", "1"],
-        ["Workplaces preparation", "11", "8", "2"],
-        ["The emproyee relocation", "14", "5", "2"],
-        ["Preparing workspace", "14", "5", "1"],
-        ["Workspaces importation", "14", "4", "1"],
-        ["Workspaces exportation", "14", "3", "0"],
-        ["Product launch", "2", "13", "0"],
-        ["Perforn Initial testing", "3", "5", "0"],
-        ["Development", "3", "11", "1"],
-        ["Develop System", "3", "2", "1"],
-        ["Beta Realese", "6", "2", "1"],
-        ["Integrate System", "8", "2", "1"],
-        ["Test", "10", "4", "2"],
-        ["Promotion", "22", "8", "2"],
-        ["Service", "18", "12", "2"],
-        ["Marketing", "10", "4", "1"],
-        ["The emproyee relocation", "14", "5", "1"],
-        ["Land Survey", "4", "8", "1"],
-        ["Plan Design", "6", "2", "1"],
-        ["Test", "10", "4", "0"],
-        ["Determine Cost", "18", "4", "0"],
-        ["Review Hardware", "20", "6", "0"],
-        ["Engineering", "6", "8", "1"],
-        ["Define Concept", "9", "10", "1"],
-        ["Compile Report", "14", "10", "1"],
-        ["Air condition check", "3", "7", "1"],
-        ["Review Data", "16", "20", "2"],
-        ["Integrate System", "8", "2", "2"],
-        ["Test", "10", "4", "2"],
-        ["Determine Cost", "18", "4", "0"],
-        ["Review Hardware", "20", "6", "0"],
-        ["User Interview", "14", "5", "1"],
-        ["Network", "16", "6", "1"],
-        ["Software", "8", "8", "1"],
-        ["Preparing workspace", "14", "5", "0"],
-        ["Workspaces importation", "14", "4", "0"],
-        ["Procedure", "10", "4", "0"],
-        ["Perforn Initial testing", "3", "5", "0"],
-        ["Development", "3", "11", "2"],
-        ["Develop System", "3", "2", "2"],
-        ["Interior office", "2", "7", "2"],
-        ["Air condition check", "3", "7", "1"],
-        ["Furniture installation", "11", "8", "1"],
-        ["Beta Realese", "6", "2", "0"],
-        ["Marketing", "10", "4", "0"],
-        ["The emproyee relocation", "14", "5", "0"],
-        ["Land Survey", "4", "8", "0"],
-        ["Forms", "12", "3", "1"],
-        ["Workspaces importation", "14", "4", "1"],
-        ["Procedure", "10", "4", "2"],
-        ["Perforn Initial testing", "3", "5", "2"],
-        ["Development", "3", "11", "2"],
-        ["Website", "14", "6", "2"],
-        ["Assemble", "3", "4", "0"],
-        ["Air condition check", "3", "7", "0"],
-        ["Furniture installation", "11", "8", "0"],
-        ["Workplaces preparation", "11", "8", "1"],
-        ["Sales", "5", "6", "1"],
-        ["Unit Test", "7", "8", "2"],
-        ["Integration Test", "20", "10", "2"],
-        ["Service", "18", "12", "2"],
-        ["Promotion", "22", "8", "1"],
-        ["Air condition check", "3", "7", "1"],
-        ["Furniture installation", "11", "8", "1"]
+    let projects = [
+        Project(name: "Todo リスト（２）", isCollapsed: false, task: [
+            Task(data: "中座乗", startDate: 2, endDate: 17, colorCode: 0),
+            Task(data: "海", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "政治", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "反抗", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "景気", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "中図", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "バサ", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "喫茶店", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "牛丼", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "用事", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "約束", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "名前", startDate: 2, endDate: 8, colorCode: 0)]),
+        Project(name: "Doing 中（１２）", isCollapsed: false, task: [
+            Task(data: "弁当", startDate: 2, endDate: 17, colorCode: 0),
+            Task(data: "自転車", startDate: 2, endDate: 8, colorCode: 0),
+            Task(data: "自動車", startDate: 2, endDate: 8, colorCode: 0)])
     ]
     let colors = [UIColor(red: 0.314, green: 0.698, blue: 0.337, alpha: 1),
                   UIColor(red: 1.000, green: 0.718, blue: 0.298, alpha: 1),
@@ -103,6 +52,7 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
         spreadsheetView.register(TextCell.self, forCellWithReuseIdentifier: String(describing: TextCell.self))
         spreadsheetView.register(TaskCell.self, forCellWithReuseIdentifier: String(describing: TaskCell.self))
         spreadsheetView.register(ChartBarCell.self, forCellWithReuseIdentifier: String(describing: ChartBarCell.self))
+        spreadsheetView.register(ProjectCell.self, forCellWithReuseIdentifier: String(describing: ProjectCell.self))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,7 +67,7 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
     }
     
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
-        return 2 + tasks.count
+        return 2 + self.getTaskCount()
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
@@ -151,12 +101,19 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
         let weakHeader = weeks.enumerated().map { (index, _) -> CellRange in
             return CellRange(from: (0, index * 7 + 1), to: (0, index * 7 + 7))
         }
-        let charts = tasks.enumerated().map { (index, task) -> CellRange in
-            let start = Int(task[1])!
-            let end = Int(task[2])!
-            return CellRange(from: (index + 2, start + 2), to: (index + 2, start + end + 2))
+        
+        var taskCellRange = [CellRange]()
+        
+        for (index, task) in projects.enumerated() {
+            if !task.isCollapsed {
+                for taskDetail in task.task {
+                    let cellRange =  CellRange(from: (index + 2, taskDetail.startDate + 2), to: (index + 2, taskDetail.endDate + 2))
+                    taskCellRange.append(cellRange)
+                }
+            }
         }
-        return titleHeader + weakHeader + charts
+        
+        return titleHeader + weakHeader + taskCellRange
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, cellForItemAt indexPath: IndexPath) -> Cell? {
@@ -180,20 +137,35 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
             cell.gridlines.right = .default
             return cell
         // ten task
-        case (0, 2..<(2 + tasks.count)):
-            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: TaskCell.self), for: indexPath) as! TaskCell
-            cell.label.text = tasks[indexPath.row - 2][0]
-            cell.gridlines.left = .default
-            cell.gridlines.right = .none
-            return cell
+        case (0, 2..<(2 + self.getTaskCount())):
+            let taskIndexList = self.getProjectIndex()
+            
+            if taskIndexList.contains(indexPath.row - 2) {
+                let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ProjectCell.self), for: indexPath) as! ProjectCell
+                let project = self.getProject(indexPath: indexPath)!
+                cell.label.text = project.name
+                cell.gridlines.left = .default
+                cell.gridlines.right = .none
+                cell.delegate = self
+                return cell
+            } else {
+                let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: TaskCell.self), for: indexPath) as! TaskCell
+                if let task = self.getTask(indexPath: indexPath) {
+                    cell.label.text = task.data
+                }
+                
+                cell.gridlines.left = .default
+                cell.gridlines.right = .none
+                return cell
+            }
 
-        case (1..<(1 + 7 * weeks.count), 2..<(2 + tasks.count)):
+        case (1..<(1 + 7 * weeks.count), 2..<(2 + self.getTaskCount())):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ChartBarCell.self), for: indexPath) as! ChartBarCell
-            let start = Int(tasks[indexPath.row - 2][1])!
+            let start = 2//Int(tasks[indexPath.row - 2][1])!
             if start == indexPath.column - 2 {
-                cell.label.text = tasks[indexPath.row - 2][0]
-                let colorIndex = Int(tasks[indexPath.row - 2][3])!
-                cell.color = colors[colorIndex]
+                cell.label.text = "test spreadview"//tasks[indexPath.row - 2][0]
+                let colorIndex = 3//Int(tasks[indexPath.row - 2][3])!
+                cell.color = UIColor.red//colors[colorIndex]
             } else {
                 cell.label.text = ""
                 cell.color = .clear
@@ -208,6 +180,74 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, didSelectItemAt indexPath: IndexPath) {
         print("Selected: (row: \(indexPath.row), column: \(indexPath.column))")
+        let index = indexPath.row - 2
+        
+        let taskIndex = self.getProjectIndex()
+        
+        let i = taskIndex.index(of: index)
+        let task = self.projects[i!]
+        task.isCollapsed = !task.isCollapsed
+        self.spreadsheetView.reloadData()
+    }
+    
+    func getProjectIndex() -> [Int] {
+        var arrIndex: [Int] = []
+        var startIndex = 0
+        
+        for (index, task) in self.projects.enumerated() {
+            if index == 0 {
+                arrIndex.append(index)
+            } else {
+                arrIndex.append(startIndex)
+            }
+            
+            startIndex += task.isCollapsed ? 1 : task.task.count
+        }
+        
+        return arrIndex
+    }
+    
+    func getTaskCount() -> Int {
+        var count = 0
+        
+        for project in self.projects {
+            count += 1 + (project.isCollapsed ? 0 : project.task.count)
+        }
+        
+        return count
+    }
+    
+    func getProject(indexPath: IndexPath) -> Project? {
+        let realIndex = indexPath.row - 2
+        let projectIndex = self.getProjectIndex()
+        
+        let index = projectIndex.index(of: realIndex)!
+        return self.projects[index]
+    }
+    
+    func getTask(indexPath: IndexPath) -> Task? {
+        let projectIndex = self.getProjectIndex()
+        let realIndex = indexPath.row - 2
+        
+        for (i, index) in projectIndex.enumerated() {
+            if i + 1 < projectIndex.count {
+                if projectIndex[i+1] > realIndex {
+                    let project = self.projects[i]
+                    
+                    return project.task[realIndex - index]
+                }
+            } else if i == projectIndex.count - 1 {
+//                let project = self.projects[i]
+//                return project.task[realIndex - index]
+            }
+        }
+        
+        return nil
     }
 }
 
+extension ViewController: ProjectCellDelegate {
+    func didExpandCollapseProject(indexPath: IndexPath) {
+        
+    }
+}
