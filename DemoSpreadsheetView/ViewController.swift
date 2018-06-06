@@ -17,22 +17,23 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
     // Task, Start, Duration, Color
     let projects = [
         Project(name: "Todo リスト（２）", isCollapsed: false, task: [
-            Task(data: "中座乗", startDate: 2, endDate: 17, colorCode: 0),
-            Task(data: "海", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "政治", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "反抗", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "景気", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "中図", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "バサ", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "喫茶店", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "牛丼", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "用事", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "約束", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "名前", startDate: 2, endDate: 8, colorCode: 0)]),
+            Task(data: "約束", startDate: 1, endDate: 4, colorCode: 0),
+            Task(data: "名前", startDate: 3, endDate: 6, colorCode: 1)]),
         Project(name: "Doing 中（１２）", isCollapsed: false, task: [
-            Task(data: "弁当", startDate: 2, endDate: 17, colorCode: 0),
-            Task(data: "自転車", startDate: 2, endDate: 8, colorCode: 0),
-            Task(data: "自動車", startDate: 2, endDate: 8, colorCode: 0)])
+            Task(data: "弁当", startDate: 4, endDate: 10, colorCode: 2),
+            Task(data: "自転車", startDate: 3, endDate: 9, colorCode: 1),
+            Task(data: "自動車", startDate: 3, endDate: 5, colorCode: 0)]),
+        Project(name: "Todo リスト（４）", isCollapsed: false, task: [
+            Task(data: "喫茶店", startDate: 4, endDate: 8, colorCode: 1),
+            Task(data: "用事", startDate: 3, endDate: 10, colorCode: 2),
+            Task(data: "約束", startDate: 1, endDate: 4, colorCode: 2),
+            Task(data: "名前", startDate: 5, endDate: 10, colorCode: 0)]),
+        Project(name: "Todo リスト（３）", isCollapsed: false, task: [
+            Task(data: "喫茶店", startDate: 1, endDate: 12, colorCode: 1),
+            Task(data: "牛丼", startDate: 5, endDate: 13, colorCode: 2),
+            Task(data: "用事", startDate: 8, endDate: 10, colorCode: 0),
+            Task(data: "約束", startDate: 3, endDate: 10, colorCode: 1),
+            Task(data: "名前", startDate: 5, endDate: 10, colorCode: 0)])
     ]
     let colors = [UIColor(red: 0.314, green: 0.698, blue: 0.337, alpha: 1),
                   UIColor(red: 1.000, green: 0.718, blue: 0.298, alpha: 1),
@@ -103,11 +104,14 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
         }
         
         var taskCellRange = [CellRange]()
+        let projectIndexList = self.getProjectIndex()
         
-        for (index, task) in projects.enumerated() {
-            if !task.isCollapsed {
-                for taskDetail in task.task {
-                    let cellRange =  CellRange(from: (index + 2, taskDetail.startDate + 2), to: (index + 2, taskDetail.endDate + 2))
+        for (index, project) in projects.enumerated() {
+            let projectIndex = projectIndexList[index] + 1
+            
+            if !project.isCollapsed {
+                for (taskIndex, task) in project.task.enumerated() {
+                    let cellRange = CellRange(from: (taskIndex + projectIndex + 2, task.startDate + 2), to: (taskIndex + projectIndex + 2, task.endDate + 2))
                     taskCellRange.append(cellRange)
                 }
             }
@@ -138,9 +142,9 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
             return cell
         // ten task
         case (0, 2..<(2 + self.getTaskCount())):
-            let taskIndexList = self.getProjectIndex()
+            let projectIndexList = self.getProjectIndex()
             
-            if taskIndexList.contains(indexPath.row - 2) {
+            if projectIndexList.contains(indexPath.row - 2) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ProjectCell.self), for: indexPath) as! ProjectCell
                 let project = self.getProject(indexPath: indexPath)!
                 cell.label.text = project.name
@@ -161,11 +165,20 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
 
         case (1..<(1 + 7 * weeks.count), 2..<(2 + self.getTaskCount())):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: ChartBarCell.self), for: indexPath) as! ChartBarCell
-            let start = 2//Int(tasks[indexPath.row - 2][1])!
-            if start == indexPath.column - 2 {
-                cell.label.text = "test spreadview"//tasks[indexPath.row - 2][0]
-                let colorIndex = 3//Int(tasks[indexPath.row - 2][3])!
-                cell.color = UIColor.red//colors[colorIndex]
+            let projectIndexList = self.getProjectIndex()
+            
+            if !projectIndexList.contains(indexPath.row - 2) {
+                let task = self.getTask(indexPath: indexPath)
+                let start = task?.startDate
+                
+                if start == indexPath.column - 2 {
+                    cell.label.text = task?.data
+                    let colorIndex = task?.colorCode
+                    cell.color = colors[colorIndex!]
+                } else {
+                    cell.label.text = ""
+                    cell.color = .clear
+                }
             } else {
                 cell.label.text = ""
                 cell.color = .clear
@@ -201,7 +214,7 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
                 arrIndex.append(startIndex)
             }
             
-            startIndex += task.isCollapsed ? 1 : task.task.count
+            startIndex += (task.isCollapsed ? 1 : task.task.count + 1)
         }
         
         return arrIndex
@@ -234,11 +247,11 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
                 if projectIndex[i+1] > realIndex {
                     let project = self.projects[i]
                     
-                    return project.task[realIndex - index]
+                    return project.task[realIndex - index - 1]
                 }
             } else if i == projectIndex.count - 1 {
-//                let project = self.projects[i]
-//                return project.task[realIndex - index]
+                let project = self.projects[i]
+                return project.task[realIndex - index - 1]
             }
         }
         
