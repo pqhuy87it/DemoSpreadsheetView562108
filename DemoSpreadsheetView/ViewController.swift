@@ -136,7 +136,7 @@ class ViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetVi
             return cell
         case (1..<(1 + 7 * weeks.count), 1):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
-            cell.label.text = String(format: "%02d Apr", indexPath.column - 2)
+            cell.label.text = String(format: "%02d Apr", indexPath.column)
             cell.gridlines.left = .default
             cell.gridlines.right = .default
             return cell
